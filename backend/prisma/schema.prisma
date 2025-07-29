@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+model User {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  email         String   @unique
+  firstName     String
+  lastName      String
+  studentId     String
+  facultyStatus String
+  membership    Boolean  @default(false)
+  profilePic    String   @default("default-profile.jpg")
+  membershipExpire DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
