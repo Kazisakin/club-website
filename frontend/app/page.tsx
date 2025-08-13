@@ -1,291 +1,298 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Instagram, Facebook, MapPin, Users, Calendar, Book, ArrowRight } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
+import { blogs } from '@/lib/blogsData';
+
+const sectionVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeInOut' } },
+};
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleJoinClick = () => {
-    document.getElementById('membership')?.scrollIntoView({ behavior: 'smooth' });
-    setIsMenuOpen(false);
-  };
-
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-sm z-50">        
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="md:hidden bg-white px-4 py-2"
-            >
-              <Link href="/login" className="block py-2 text-gray-700 hover:text-[#F52727]">Login</Link>
-              <button
-                onClick={handleJoinClick}
-                className="block w-full text-left py-2 text-gray-700 hover:text-[#F52727]"
-              >
-                Join the Club
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
-
-      {/* Hero Section */}
-      <motion.header
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="relative bg-[url('/images/placeholder.jpg')] bg-cover bg-center text-white pt-24 pb-20"
-        style={{ backgroundColor: '#B22222' }}
+    <div className="bg-gray-900 text-white font-sans min-h-screen">
+      {/* Hero Section with Fixed Background */}
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c')] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center"
       >
-        <div className="absolute inset-0 bg-black/60"></div>
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
-            UNB Bangladeshi Student Society
+        <div className="absolute inset-0 bg-black/0 backdrop-blur-sm"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+          <h1 className="text-5xl sm:text-6xl font-extrabold mb-6 tracking-tight">
+            Empowering Futures
           </h1>
-          <p className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto">
-            Connecting Bangladeshi students at UNB through vibrant cultural events, academic support, and a welcoming community.
+          <p className="text-xl sm:text-2xl mb-10 max-w-4xl mx-auto leading-relaxed">
+            Welcome to our platform dedicated to fostering innovation, collaboration, and excellence in education. Join us in shaping a brighter future for students worldwide.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              href="/login"
-              className="bg-[#1fd155] text-white px-6 py-3 rounded-lg hover:bg-black hover:text-white transition-colors font-medium"
-            >
-              Login
-            </Link>
-            <button
-              onClick={handleJoinClick}
-              className="bg-[#1fd155] text-white px-6 py-3 rounded-lg hover:bg-black hover:text-white transition-colors font-medium"
-            >
-              Join the Club
-            </button>
-          </div>
-        </div>
-      </motion.header>
-
-      {/* About the Club */}
-      <motion.section
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8"
-      >
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          <div className="w-full md:w-1/2">
-            <img
-              src="/images/placeholder.jpg"
-              alt="UNB BSS Community"
-              className="rounded-xl shadow-lg w-full h-64 object-cover"
-            />
-          </div>
-          <div className="w-full md:w-1/2">
-            <h2 className="text-3xl font-semibold text-[#F52727] mb-4 flex items-center gap-2">
-              <Users className="w-6 h-6" />
-              About Us
-            </h2>
-            <p className="text-lg text-gray-600">
-              The UNB Bangladeshi Student Society (BSS) is a vibrant community dedicated to fostering cultural pride, academic
-              excellence, and lifelong friendships among Bangladeshi students at the University of New Brunswick. From cultural
-              celebrations to professional workshops, we provide a supportive space for students to thrive.
-            </p>
-            <p className="text-lg text-gray-600 mt-4">
-              Our mission is to create a sense of belonging, celebrate Bangladeshi heritage, and empower students through
-              mentorship, networking, and community engagement.
-            </p>
-          </div>
+          <a
+            href="#mission"
+            className="inline-block bg-green-600 hover:bg-red-500 text-white font-semibold py-3 px-8 rounded-full transition duration-300"
+          >
+            Discover Our Mission
+          </a>
         </div>
       </motion.section>
 
-      {/* Executive Team */}
+      {/* Mission & Vision Section with Same Background */}
       <motion.section
         variants={sectionVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8"
+        animate="visible"
+        className="relative bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c')] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center"
+        id="mission"
       >
-        <h2 className="text-3xl font-semibold text-[#1fd155] text-center mb-8 flex items-center justify-center gap-2">
-          <Users className="w-6 h-6" />
-          Our Leadership
-        </h2>
-        <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-          Meet the passionate team driving the UNB BSS forward with dedication and vision.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {[
-            { name: 'President', title: '[Name]' },
-            { name: 'Vice President', title: '[Name]' },
-            { name: 'General Secretary', title: '[Name]' },
-            { name: 'Treasurer', title: '[Name]' },
-            { name: 'Event Coordinator', title: '[Name]' },
-            { name: 'Faculty Advisor', title: '[Name, Department]' },
-          ].map((member, index) => (
-            <div key={index} className="text-center p-4 bg-white rounded-xl shadow-lg">
-              <img
-                src="/images/placeholder.jpg"
-                alt={`${member.name} Photo`}
-                className="w-24 h-24 mx-auto rounded-full mb-3 object-cover"
-              />
-              <h3 className="text-xl font-medium text-gray-900">{member.name}</h3>
-              <p className="text-gray-600">{member.title}</p>
+        <div className="absolute inset-0 bg-black/0 backdrop-blur-sm"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Left Side: Text Content */}
+            <div className="lg:w-1/2 bg-white/10 backdrop-blur-lg rounded-2xl p-12 border border-green-600/20">
+              <h2 className="text-4xl font-bold text-white mb-8">Our Mission & Vision</h2>
+              <p className="text-lg text-white/80 mb-12 max-w-3xl leading-relaxed">
+                We are committed to creating an inclusive and dynamic environment where students thrive, innovate, and lead with confidence.
+              </p>
+              <div className="grid grid-cols-1 gap-8">
+                <div className="p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-green-600/20 hover:border-red-500/20 transition duration-300">
+                  <h3 className="text-2xl font-semibold text-white mb-4">Our Mission</h3>
+                  <p className="text-white/80 leading-relaxed">
+                    To empower students by providing unparalleled opportunities for growth, collaboration, and academic excellence through a supportive global community.
+                  </p>
+                </div>
+                <div className="p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-green-600/20 hover:border-red-500/20 transition duration-300">
+                  <h3 className="text-2xl font-semibold text-white mb-4">Our Vision</h3>
+                  <p className="text-white/80 leading-relaxed">
+                    To be the leading global platform inspiring students to achieve their highest potential and drive transformative change in education.
+                  </p>
+                </div>
+              </div>
             </div>
-          ))}
+            {/* Right Side: Image */}
+            <div className="lg:w-1/2 flex items-center justify-center">
+              <img
+                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655"
+                alt="Students collaborating"
+                className="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-lg"
+              />
+            </div>
+          </div>
         </div>
       </motion.section>
 
-      {/* Events & Gallery */}
+      {/* Gallery Section with Same Background */}
       <motion.section
         variants={sectionVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8"
+        animate="visible"
+        className="relative bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c')] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center"
+        id="gallery"
       >
-        <h2 className="text-3xl font-semibold text-[#F52727] text-center mb-8 flex items-center justify-center gap-2">
-          <Calendar className="w-6 h-6" />
-          Events & Memories
-        </h2>
-        <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-          From vibrant cultural festivals to engaging workshops, our events create unforgettable memories and strengthen our
-          community.
-        </p>
-        <div className="columns-2 sm:columns-3 gap-4">
-          {Array(8).fill(0).map((_, i) => (
-            <img
-              key={i}
-              src="/images/placeholder.jpg"
-              alt={`Event Photo ${i + 1}`}
-              className="mb-4 rounded-xl shadow-md w-full h-48 object-cover"
-            />
-          ))}
-        </div>
-        <div className="text-center mt-8">
-          <Link
-            href="/gallery"
-            className="bg-[#1fd155] text-white px-6 py-3 rounded-lg hover:bg-black hover:text-white transition-colors font-medium"
-          >
-            Explore Full Gallery
-          </Link>
-        </div>
-      </motion.section>
-
-      {/* Student Resources */}
-      <motion.section
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8"
-      >
-        <h2 className="text-3xl font-semibold text-[#1fd155] text-center mb-8 flex items-center justify-center gap-2">
-          <Book className="w-6 h-6" />
-          Student Resources
-        </h2>
-        <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-          Discover our comprehensive guides and vlogs to help you navigate life at UNB with confidence.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            'New Student Orientation Guide',
-            'Housing & Survival Tips',
-            'Campus Life & Activities',
-            'Visa & Immigration Support',
-            'Career & Networking Guide',
-            'Mental Health Resources',
-            'Scholarship Opportunities',
-          ].map((resource, index) => (
-            <Link
-              key={index}
-              href={`/${resource.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`}
-              className="bg-white text-[#F52727] px-6 py-4 rounded-xl shadow-md hover:bg-gray-100 transition-colors flex items-center justify-center text-center"
-            >
-              {resource}
-            </Link>
-          ))}
+        <div className="absolute inset-0 bg-black/0 backdrop-blur-sm"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-12 border border-green-600/20">
+            <h2 className="text-4xl font-bold text-white mb-8 text-center">Our Events</h2>
+            <p className="text-lg text-white/80 mb-12 max-w-3xl mx-auto text-center leading-relaxed">
+              Explore the vibrant moments from our community events, workshops, and initiatives that bring students together to learn, collaborate, and inspire.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  src: 'https://images.unsplash.com/photo-1516321310767-0d0c0b43b716',
+                  alt: 'Event 1: Student Workshop',
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678',
+                  alt: 'Event 2: Community Gathering',
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1542744173-05336fcc7ad4',
+                  alt: 'Event 3: Innovation Summit',
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1543269865-0a740d43b90c',
+                  alt: 'Event 4: Leadership Conference',
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622',
+                  alt: 'Event 5: Networking Event',
+                },
+                {
+                  src: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04',
+                  alt: 'Event 6: Educational Seminar',
+                },
+              ].map((image, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.05 }}
+                  className="relative overflow-hidden rounded-lg border border-green-600/20 hover:border-red-500/20 transition duration-300"
+                >
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-64 object-cover"
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </motion.section>
 
-      {/* Membership Section */}
+      {/* Current Panel Section with Same Background */}
       <motion.section
         variants={sectionVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        id="membership"
-        className="bg-[#F52727] text-white py-16 px-4 text-center"
+        animate="visible"
+        className="relative bg-[url('/images/placeholder.jpg')] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center"
+        id="panel"
       >
-        <h2 className="text-3xl font-semibold mb-6">Join Our Community</h2>
-        <p className="text-lg mb-8 max-w-2xl mx-auto">
-          Become a part of the UNB BSS and gain access to exclusive events, mentorship programs, and a network of supportive
-          peers. Whether you're a new or returning student, there's a place for you in our family.
-        </p>
-        <Link
-          href="/signup"
-          className="bg-[#1fd155] text-white px-6 py-3 rounded-lg hover:bg-black hover:text-white transition-colors font-medium inline-flex items-center gap-2"
-        >
-          Sign Up Now <ArrowRight className="w-5 h-5" />
-        </Link>
+        <div className="absolute inset-0 bg-black/0 "></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-12 border border-green-600/20">
+            <h2 className="text-4xl font-bold text-white mb-8 text-center">Our Current Panel</h2>
+            <p className="text-lg text-white/80 mb-12 max-w-3xl mx-auto text-center leading-relaxed">
+              Meet our dedicated leadership team driving the vision and mission of our organization forward.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  name: 'John Doe',
+                  role: 'President',
+                  description: 'Leads the organization with a focus on strategic growth and community engagement.',
+                },
+                {
+                  name: 'Jane Smith',
+                  role: 'Vice President',
+                  description: 'Supports the president and drives initiatives to enhance member experience.',
+                },
+                {
+                  name: 'Alex Johnson',
+                  role: 'General Secretary',
+                  description: 'Manages communications and ensures smooth organizational operations.',
+                },
+                {
+                  name: 'Emily Davis',
+                  role: 'Event Coordinator',
+                  description: 'Plans and executes impactful events to foster collaboration and learning.',
+                },
+                {
+                  name: 'Michael Brown',
+                  role: 'Webmaster',
+                  description: 'Oversees the digital presence, ensuring a seamless online experience.',
+                },
+                {
+                  name: 'Sarah Wilson',
+                  role: 'Treasurer',
+                  description: 'Manages finances to support our initiatives and ensure sustainability.',
+                },
+              ].map((member, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.05 }}
+                  className="p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-green-600/20 hover:border-red-500/20 transition duration-300"
+                >
+                  <h3 className="text-2xl font-semibold text-white mb-2">{member.name}</h3>
+                  <p className="text-lg text-white/90 mb-4">{member.role}</p>
+                  <p className="text-white/80 leading-relaxed">{member.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
       </motion.section>
 
-      {/* Contact & Social Media */}
+      {/* Blogs Section with Card Style */}
       <motion.section
         variants={sectionVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="max-w-5xl mx-auto py-16 px-4 text-center"
+        animate="visible"
+        className="relative bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c')] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center"
+        id="blogs"
       >
-        <h2 className="text-3xl font-semibold text-[#1fd155] mb-6 flex items-center justify-center gap-2">
-          <Mail className="w-6 h-6" />
-          Connect With Us
-        </h2>
-        <p className="text-gray-600 mb-6">
-          Have questions? Reach out to us or follow our socials for the latest updates.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
-          <a
-            href="mailto:unbbss@gmail.com"
-            className="text-[#F52727] hover:text-[#F52727]/80 transition-colors flex items-center gap-2 justify-center"
-          >
-            <Mail className="w-5 h-5" />
-            unbbss@gmail.com
-          </a>
-          <a
-            href="https://fb.com/unbbss"
-            className="text-[#F52727] hover:text-[#F52727]/80 transition-colors flex items-center gap-2 justify-center"
-          >
-            <Facebook className="w-5 h-5" />
-            Facebook
-          </a>
-          <a
-            href="https://instagram.com/unbbss"
-            className="text-[#F52727] hover:text-[#F52727]/80 transition-colors flex items-center gap-2 justify-center"
-          >
-            <Instagram className="w-5 h-5" />
-            Instagram
-          </a>
+        <div className="absolute inset-0 bg-black/0 backdrop-blur-sm"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-12 border border-green-600/20">
+            <h2 className="text-4xl font-bold text-white mb-8 text-center">Our Blogs</h2>
+            <p className="text-lg text-white/80 mb-12 max-w-3xl mx-auto text-center leading-relaxed">
+              Explore insightful articles and resources designed to help students succeed in their educational journey.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {blogs.slice(0, 6).map((blog, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.05 }}
+                  className="relative overflow-hidden rounded-lg border border-green-600/20 hover:border-red-500/20 transition duration-300"
+                >
+                  <img
+                    src={blog.image}
+                    alt={blog.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4 bg-black/5 backdrop-blur-md"> {/* Reduced padding */}
+                    <h3 className="text-xl font-semibold text-white mb-2">{blog.title}</h3> {/* Adjusted font size */}
+                    <p className="text-black/80 mb-4 leading-relaxed">{blog.excerpt}</p>
+                    <a
+                      href={`/blogs/${blog.slug}`}
+                      className="text-black-600 hover:text-red-500 font-medium transition-colors duration-200"
+                    >
+                      Read More
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
-        <p>
-          <a
-            href="https://maps.unb.ca/"
-            className="text-[#F52727] hover:text-[#F52727]/80 transition-colors flex items-center gap-2 justify-center mx-auto"
-          >
-            <MapPin className="w-5 h-5" />
-            UNB Fredericton Campus
-          </a>
-        </p>
+      </motion.section>
+
+      {/* Ongoing Events Section with Same Background */}
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c')] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center"
+        id="ongoing-events"
+      >
+        <div className="absolute inset-0 bg-black/0 backdrop-blur-sm"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-12 border border-green-600/20">
+            <h2 className="text-4xl font-bold text-white mb-8 text-center">Ongoing Events</h2>
+            <p className="text-lg text-white/80 mb-12 max-w-3xl mx-auto text-center leading-relaxed">
+              Join our current events to connect, learn, and grow with our community.
+            </p>
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Left Side: Photo */}
+              <div className="lg:w-1/2 flex items-center justify-center">
+                <img
+                  src="https://images.unsplash.com/photo-1516321310767-0d0c0b43b716"
+                  alt="Ongoing Event"
+                  className="w-full h-auto max-h-[400px] object-cover rounded-2xl shadow-lg"
+                />
+              </div>
+              {/* Right Side: Registration Options */}
+              <div className="lg:w-1/2 bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-green-600/20">
+                <h3 className="text-2xl font-semibold text-white mb-6">Register Now</h3>
+                <p className="text-white/80 mb-6 leading-relaxed">
+                  Choose your registration type and join us. Deadline: September 15, 2025.
+                </p>
+                <div className="space-y-4">
+                  <a
+                    href="#student-registration"
+                    className="block bg-green-600 hover:bg-red-500 text-white font-medium py-3 px-6 rounded-full text-center transition duration-300"
+                  >
+                    Register as Student
+                  </a>
+                  <a
+                    href="#community-registration"
+                    className="block bg-green-600 hover:bg-red-500 text-white font-medium py-3 px-6 rounded-full text-center transition duration-300"
+                  >
+                    Register as Community Member
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </motion.section>
     </div>
   );
